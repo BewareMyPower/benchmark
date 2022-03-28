@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -17,28 +18,15 @@
 # under the License.
 #
 
+set -e
+cd `dirname $0`
 
+# Download binaries to a specific path
+mkdir -p $HOME/benchmark-binaries
+cd $HOME/benchmark-binaries
 
-### Use all the broker defaults except for the following
-
-# Zookeeper quorum connection string
-zookeeperServers={{ zookeeperServers }}
-
-# Global Zookeeper quorum connection string
-globalZookeeperServers={{ zookeeperServers }}
-
-# Hostname or IP address the service advertises to the outside world. If not set, the value of InetAddress.getLocalHost().getHostName() is used.
-advertisedAddress={{ hostvars[inventory_hostname].private_ip }}
-
-# Name of the cluster to which this broker belongs to
-clusterName=local
-
-loadBalancerAutoUnloadSplitBundlesEnabled=false
-
-defaultNumberOfNamespaceBundles=64
-
-managedLedgerNewEntriesCheckDelayInMillis=0
-
-bookkeeperNumberOfChannelsPerBookie=64
-
-loadBalancerOverrideBrokerNicSpeedGbps=5
+set -x
+wget https://dlcdn.apache.org/pulsar/pulsar-2.9.1/apache-pulsar-2.9.1-bin.tar.gz
+wget https://github.com/streamnative/kop/releases/download/v2.9.2.9/pulsar-protocol-handler-kafka-2.9.2.9.nar
+wget https://github.com/prometheus/node_exporter/releases/download/v1.2.2/node_exporter-1.2.2.linux-amd64.tar.gz
+wget https://github.com/prometheus/prometheus/releases/download/v2.31.1/prometheus-2.31.1.linux-amd64.tar.gz

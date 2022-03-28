@@ -30,20 +30,22 @@ zookeeper_max_direct_memory: 512m
 # Set it with true if you want BookKeeper to skip the journal writes.
 skip_journal: false
 
+binaries_dir: "{{ lookup('env', 'HOME')}}/benchmark-binaries"
+
 # By default, ansible downloads binaries from network. The download URL is determined automatically by the version.
 # To specific another URL to download, you should configure `remote` with `yes` and `src` with the new URL.
 # To upload local binaries, you should configure `remote` with `no` and `src` with the local path.
-#pulsar_binary:
-#  src: ./apache-pulsar-2.9.1-bin.tar.gz
-#  remote: no
-#
-#node_exporter_binary:
-#  src: ./node_exporter-1.2.2.linux-amd64.tar.gz
-#  remote: no
-#
-#prometheus_binary:
-#  src: ./prometheus-2.31.1.linux-amd64.tar.gz
-#  remote: no
+pulsar_binary:
+  src: "{{ binaries_dir }}/apache-pulsar-2.9.1-bin.tar.gz"
+  remote: no
+
+node_exporter_binary:
+  src: "{{ binaries_dir }}/node_exporter-1.2.2.linux-amd64.tar.gz"
+  remote: no
+
+prometheus_binary:
+  src: "{{ binaries_dir }}/prometheus-2.31.1.linux-amd64.tar.gz"
+  remote: no
 
 # The two disk device paths as BookKeeper journal and storage disks
 disk_dev:
@@ -54,9 +56,5 @@ disk_dev:
 protocol_handlers:
   - protocol: kafka
     conf: kop.conf
-    url: https://github.com/streamnative/kop/releases/download/v2.9.2.5/pulsar-protocol-handler-kafka-2.9.2.5.nar
-    #local_path: ./pulsar-protocol-handler-kafka-2.9.2.5.nar
-  - protocol: mqtt
-    conf: mop.conf
-    url: https://github.com/streamnative/mop/releases/download/v2.9.2.5/pulsar-protocol-handler-mqtt-2.9.2.5.nar
-    #local_path: ./pulsar-protocol-handler-mqtt-2.9.2.5.nar
+    url: https://github.com/streamnative/kop/releases/download/v2.9.2.9/pulsar-protocol-handler-kafka-2.9.2.9.nar
+    local_path: "{{ binaries_dir }}/pulsar-protocol-handler-kafka-2.9.2.9.nar"

@@ -1,17 +1,17 @@
 public_key_path = "~/.ssh/pulsar_aws.pub"
-region          = "us-west-2"
-az              = "us-west-2a"
-ami             = "ami-9fa343e7" // RHEL-7.4
+region          = "cn-north-1"
+az              = "cn-north-1a"
+ami             = "ami-0c04ac6974e10f832"
 
 instance_types = {
-  "pulsar"     = "i3en.6xlarge"
+  "pulsar"     = "i3en.2xlarge"
   "zookeeper"  = "t2.small"
-  "client"     = "m5n.8xlarge"
+  "client"     = "m5.8xlarge"
   "prometheus" = "t2.large"
 }
 
 num_instances = {
-  "client"     = 4
+  "client"     = 2
   "pulsar"     = 3
   "zookeeper"  = 3
   "prometheus" = 1
