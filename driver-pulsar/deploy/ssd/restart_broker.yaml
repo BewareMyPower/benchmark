@@ -61,6 +61,7 @@
       lineinfile:
         path: /opt/pulsar/conf/broker.conf
         line: "messagingProtocols={{ protocols | join(',') }}"
+      when: protocol_handlers is defined
     - name: Read configurations of all protocol handlers
       shell: |
         grep -v "^#" "{{ '/opt/pulsar/conf/' + item.conf }}"
@@ -78,7 +79,7 @@
         path: /opt/pulsar/conf/broker.conf
         line: "{{ item.stdout_lines | join('\n') }}"
       loop: "{{ conf_files.results }}"
-      when: conf_files is defined
+      when: protocol_handlers is defined
     - systemd:
         state: started
         daemon_reload: yes
